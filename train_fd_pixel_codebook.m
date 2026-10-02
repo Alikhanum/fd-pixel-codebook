@@ -14,8 +14,14 @@ assert(isfield(r,'evaluation') && isfield(r.evaluation,'centerS') && ...
     isfield(r.evaluation,'stateBits') && isfield(r,'fullArchitecture') && ...
     isfield(r,'originalLoadPorts'), 'Missing scalable SEBO result fields.');
 ev = r.evaluation;
-bits = double(ev.stateBits);
-Q = size(bits,1);
+Q = size(ev.stateBits,1);
+% stateBits can enumerate groups; physicalStateBits expands group columns.
+if isfield(ev,'physicalStateBits')
+    bits = double(ev.physicalStateBits);
+else
+    bits = double(ev.stateBits);
+end
+assert(size(bits,1) == Q, 'State rows do not align with centerS.');
 assert(ndims(ev.centerS) <= 4 && size(ev.centerS,1) == 2 && ...
     size(ev.centerS,2) == 2 && size(ev.centerS,3) == 1 && ...
     size(ev.centerS,4) == Q, 'Expected 2-by-2-by-1-by-Q centerS.');
