@@ -9,6 +9,7 @@ results.originalLoadPorts = [3 5 7];
 results.fullArchitecture = [1 2 0];
 results.environmentS21 = [0.1; -0.1];
 results.evaluation.stateBits = [0; 1];
+results.evaluation.physicalStateBits = [0; 1];
 S = complex(zeros(2,2,1,2));
 S(1,1,1,:) = 0.1; S(2,2,1,:) = 0.1;
 S(2,1,1,1) = -0.1; S(2,1,1,2) = 0.1;
